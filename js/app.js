@@ -4,7 +4,7 @@ var Enemy = function() {
     // 我们已经提供了一个来帮助你实现更多
 
     // 敌人的图片或者雪碧图，用一个我们提供的工具函数来轻松的加载文件
-    this.sprite = 'images/enemy-bug.png';
+    this.sprite = "images/enemy-bug.png";
 };
 
 // 此为游戏必须的函数，用来更新敌人的位置
@@ -19,10 +19,25 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+var Player = function() {
+    this.x = 10;
+    this.y = 10;
+    this.sprite = "images/char-horn-girl.png";
+};
+
+Player.prototype.update = function(dt) {
+
+};
+
+Player.prototype.render = function() {
+    //ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
 // 现在实现你自己的玩家类
 // 这个类需要一个 update() 函数， render() 函数和一个 handleInput()函数
 
-
+var allEnemies = [];
+var player = new Player();
 // 现在实例化你的所有对象
 // 把所有敌人的对象都放进一个叫 allEnemies 的数组里面
 // 把玩家对象放进一个叫 player 的变量里面
