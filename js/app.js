@@ -51,9 +51,9 @@ Enemy.prototype.render = function () {
 };
 
 var Player = function () {
-    this.x = 10;
-    this.y = 10;
-    this.sprite = "images/char-horn-girl.png";
+    this.x = staticDimension.IMAGE_WIDTH * 2;
+    this.y = staticDimension.IMAGE_HEIGHT * 5;
+    this.sprite = "images/char-boy.png";
 };
 
 Player.prototype.update = function (dt) {
@@ -61,11 +61,11 @@ Player.prototype.update = function (dt) {
 };
 
 Player.prototype.render = function () {
-    //ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-Player.prototype.handleInput = function () {
-
+Player.prototype.handleInput = function (keyCode) {
+    console.log("key: " + keyCode);
 };
 
 // 现在实现你自己的玩家类
