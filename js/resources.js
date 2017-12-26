@@ -12,7 +12,7 @@
      * 路径字符串。然后再调用我们私有的图片加载函数。
      */
     function load(urlOrArr) {
-        if(urlOrArr instanceof Array) {
+        if (urlOrArr instanceof Array) {
             /* 如果开发者传进来一个图片数组，循环访问每个值，然后调用我们的图片加载器 */
             urlOrArr.forEach(function(url) {
                 _load(url);
@@ -27,7 +27,7 @@
 
     /* 这是我们私有的图片加载函数， 它会被公有的图片加载函数调用 */
     function _load(url) {
-        if(resourceCache[url]) {
+        if (resourceCache[url]) {
             /* 如果这个 URL 之前已经被加载了，那么它会被放进我们的资源缓存数组里面，
              * 然后直接返回那张图片即可。
              */
@@ -43,7 +43,7 @@
                 resourceCache[url] = img;
                 /* 一旦我们的图片已经被加载和缓存，调用所有我们已经定义的回调函数。
                  */
-                if(isReady()) {
+                if (isReady()) {
                     readyCallbacks.forEach(function(func) { func(); });
                 }
             };
@@ -67,9 +67,9 @@
      */
     function isReady() {
         var ready = true;
-        for(var k in resourceCache) {
-            if(resourceCache.hasOwnProperty(k) &&
-               !resourceCache[k]) {
+        for (var k in resourceCache) {
+            if (resourceCache.hasOwnProperty(k) &&
+                !resourceCache[k]) {
                 ready = false;
             }
         }

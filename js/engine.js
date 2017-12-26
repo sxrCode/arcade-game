@@ -76,7 +76,8 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
         });
-        player.update();
+        player.update(dt);
+        game.update(dt);
     }
 
     /* 这个函数做了一些游戏的初始渲染，然后调用 renderEntities 函数。记住，这个函数
@@ -87,12 +88,12 @@ var Engine = (function(global) {
     function render() {
         /* 这个数组保存着游戏关卡的特有的行对应的图片相对路径。 */
         var rowImages = [
-                'images/water-block.png',   // 这一行是河。
-                'images/stone-block.png',   // 第一行石头
-                'images/stone-block.png',   // 第二行石头
-                'images/stone-block.png',   // 第三行石头
-                'images/grass-block.png',   // 第一行草地
-                'images/grass-block.png'    // 第二行草地
+                'images/water-block.png', // 这一行是河。
+                'images/stone-block.png', // 第一行石头
+                'images/stone-block.png', // 第二行石头
+                'images/stone-block.png', // 第三行石头
+                'images/grass-block.png', // 第一行草地
+                'images/grass-block.png' // 第二行草地
             ],
             numRows = 6,
             numCols = 5,
