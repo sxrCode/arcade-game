@@ -64,65 +64,12 @@ var Engine = (function(global) {
      * 注释了，你可以在这里实现，也可以在 app.js 对应的角色类里面实现。
      */
     function update(dt) {
-        updateEntities(dt);
-        // checkCollisions();
-    }
-
-    /* 这个函数会遍历在 app.js 定义的存放所有敌人实例的数组，并且调用他们的 update()
-     * 函数，然后，它会调用玩家对象的 update 方法，最后这个函数被 update 函数调用。
-     * 这些更新函数应该只聚焦于更新和对象相关的数据/属性。把重绘的工作交给 render 函数。
-     */
-    function updateEntities(dt) {
-        allEnemies.forEach(function(enemy) {
-            enemy.update(dt);
-        });
-        player.update(dt);
         game.update(dt);
     }
 
-    /* 这个函数做了一些游戏的初始渲染，然后调用 renderEntities 函数。记住，这个函数
-     * 在每个游戏的时间间隙都会被调用一次（或者说游戏引擎的每个循环），因为这就是游戏
-     * 怎么工作的，他们就像是那种每一页上都画着不同画儿的书，快速翻动的时候就会出现是
-     * 动画的幻觉，但是实际上，他们只是不停的在重绘整个屏幕。
-     */
+
     function render() {
-        /* 这个数组保存着游戏关卡的特有的行对应的图片相对路径。 */
-        var rowImages = [
-                'images/water-block.png', // 这一行是河。
-                'images/stone-block.png', // 第一行石头
-                'images/stone-block.png', // 第二行石头
-                'images/stone-block.png', // 第三行石头
-                'images/grass-block.png', // 第一行草地
-                'images/grass-block.png' // 第二行草地
-            ],
-            numRows = 6,
-            numCols = 5,
-            row, col;
-
-        /* 便利我们上面定义的行和列，用 rowImages 数组，在各自的各个位置绘制正确的图片 */
-        for (row = 0; row < numRows; row++) {
-            for (col = 0; col < numCols; col++) {
-                /* 这个 canvas 上下文的 drawImage 函数需要三个参数，第一个是需要绘制的图片
-                 * 第二个和第三个分别是起始点的x和y坐标。我们用我们事先写好的资源管理工具来获取
-                 * 我们需要的图片，这样我们可以享受缓存图片的好处，因为我们会反复的用到这些图片
-                 */
-                ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
-            }
-        }
-
-        renderEntities();
-    }
-
-    /* 这个函数会在每个时间间隙被 render 函数调用。他的目的是分别调用你在 enemy 和 player
-     * 对象中定义的 render 方法。
-     */
-    function renderEntities() {
-        /* 遍历在 allEnemies 数组中存放的作于对象然后调用你事先定义的 render 函数 */
-        allEnemies.forEach(function(enemy) {
-            enemy.render();
-        });
-
-        player.render();
+        game.render();
     }
 
     /* 这个函数现在没干任何事，但是这会是一个好地方让你来处理游戏重置的逻辑。可能是一个
@@ -141,7 +88,11 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
-        'images/char-boy.png'
+        'images/char-boy.png',
+        "images/char-cat-girl.png",
+        "images/char-horn-girl.png",
+        "images/char-pink-girl.png",
+        "images/char-princess-girl.png"
     ]);
     Resources.onReady(init);
 
