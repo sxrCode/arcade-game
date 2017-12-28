@@ -14,7 +14,7 @@ var Enemy = function() {
 
 Enemy.prototype.toActive = function() {
     this.active = true;
-    var row = parseInt(Math.random() * 3 + 1, 10);
+    let row = parseInt(Math.random() * 3 + 1, 10);
     this.y = row * staticDimension.IMAGE_HEIGHT - 10;
     this.speed = parseInt(Math.random() * 2 + 1, 10) * 300;
 };
@@ -50,6 +50,9 @@ Enemy.prototype.render = function() {
     }
 };
 
+/**
+ * 代表玩家
+ */
 var Player = function() {
     this.x = staticDimension.IMAGE_WIDTH * 2;
     this.y = staticDimension.IMAGE_HEIGHT * 5;
@@ -82,7 +85,6 @@ Player.prototype.reset = function() {
 
 Player.prototype.handleInput = function(keyCode) {
     if (this.duaration >= 0.2) {
-        console.log("key: " + keyCode);
         this.duaration = 0;
         let x = 0;
         let y = 0;
@@ -115,8 +117,6 @@ Player.prototype.setSprite = function(sprite) {
     this.sprite = sprite;
 };
 
-// 现在实现你自己的玩家类
-// 这个类需要一个 update() 函数， render() 函数和一个 handleInput()函数
 
 var staticDimension = {
     IMAGE_WIDTH: 101,
@@ -132,13 +132,13 @@ var player = new Player();
 
 // 这段代码监听游戏玩家的键盘点击事件并且代表将按键的关键数字送到 Play.handleInput()
 // 方法里面。你不需要再更改这段代码了。
-document.addEventListener('keyup', function(e) {
-    var allowedKeys = {
+document.addEventListener("keyup", function(e) {
+    let allowedKeys = {
         13: "enter",
-        37: 'left',
-        38: 'up',
-        39: 'right',
-        40: 'down'
+        37: "left",
+        38: "up",
+        39: "right",
+        40: "down"
     };
 
     game.handleInput(allowedKeys[e.keyCode]);
@@ -146,10 +146,10 @@ document.addEventListener('keyup', function(e) {
 
 var game = (function() {
 
-    var state = 0;
+    let state = 0; //游戏状态 0-选择玩家 1-进行游戏
     let winCount = 0;
     let loseCount = 0;
-    var Game = function(player) {
+    let Game = function(player) {
         this.player = player;
     }
 
@@ -169,7 +169,6 @@ var game = (function() {
             enemy.update(dt);
             if (enemy.active && Math.abs(enemy.y - player.y) < 20) {
                 if ((enemy.x > (player.x + 101)) || ((enemy.x + 101) < player.x)) {} else {
-                    console.log("lose game!");
                     let span = document.getElementsByClassName("failure")[0];
                     span.innerHTML = "" + (++loseCount);
                     player.onLose();
@@ -177,7 +176,6 @@ var game = (function() {
             }
         });
         if (player.realY < staticDimension.IMAGE_HEIGHT) {
-            console.log("win Game!");
             let span = document.getElementsByClassName("success")[0];
             span.innerHTML = "" + (++winCount);
             player.onWin();
@@ -220,7 +218,6 @@ var game = (function() {
      * 动画的幻觉，但是实际上，他们只是不停的在重绘整个屏幕。
      */
     function renderGaming() {
-
         renderBackground();
         renderEntities();
     }
@@ -247,13 +244,13 @@ var game = (function() {
 
 function renderBackground() {
     /* 这个数组保存着游戏关卡的特有的行对应的图片相对路径。 */
-    var rowImages = [
-            'images/water-block.png', // 这一行是河。
-            'images/stone-block.png', // 第一行石头
-            'images/stone-block.png', // 第二行石头
-            'images/stone-block.png', // 第三行石头
-            'images/grass-block.png', // 第一行草地
-            'images/grass-block.png' // 第二行草地
+    let rowImages = [
+            "images/water-block.png", // 这一行是河。
+            "images/stone-block.png", // 第一行石头
+            "images/stone-block.png", // 第二行石头
+            "images/stone-block.png", // 第三行石头
+            "images/grass-block.png", // 第一行草地
+            "images/grass-block.png" // 第二行草地
         ],
         numRows = 6,
         numCols = 5,
@@ -271,8 +268,11 @@ function renderBackground() {
     }
 }
 
+/**
+ * 玩家选择模块
+ */
 var playerSelector = (function() {
-    var cards = [];
+    let cards = [];
     let oldSelectNumber = 0;
     let selectNumber = 0;
 
@@ -302,7 +302,6 @@ var playerSelector = (function() {
     };
 
     Selector.prototype.handleInput = function(keyCode) {
-        console.log("keycode: " + keyCode);
         oldSelectNumber = selectNumber;
         switch (keyCode) {
             case "left":
@@ -320,7 +319,6 @@ var playerSelector = (function() {
                 }
                 break;
             case "enter":
-                console.log("select " + selectNumber);
                 player.setSprite(cards[selectNumber].getSprite());
                 game.finishSelect();
                 break;
