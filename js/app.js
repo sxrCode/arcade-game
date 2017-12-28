@@ -147,6 +147,8 @@ document.addEventListener('keyup', function(e) {
 var game = (function() {
 
     var state = 0;
+    let winCount = 0;
+    let loseCount = 0;
     var Game = function(player) {
         this.player = player;
     }
@@ -168,12 +170,16 @@ var game = (function() {
             if (enemy.active && Math.abs(enemy.y - player.y) < 20) {
                 if ((enemy.x > (player.x + 101)) || ((enemy.x + 101) < player.x)) {} else {
                     console.log("lose game!");
+                    let span = document.getElementsByClassName("failure")[0];
+                    span.innerHTML = "" + (++loseCount);
                     player.onLose();
                 }
             }
         });
         if (player.realY < staticDimension.IMAGE_HEIGHT) {
             console.log("win Game!");
+            let span = document.getElementsByClassName("success")[0];
+            span.innerHTML = "" + (++winCount);
             player.onWin();
         }
     }
